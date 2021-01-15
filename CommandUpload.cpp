@@ -20,7 +20,7 @@ void CommandUpload::execute() {
         linesTrain.push_back(line);
         line = this->dio->read();
     }
-    this->fileTrain = createFile(linesTrain,"flightTrain.csv");
+    createFile(linesTrain,"flightTrain.csv");
     TimeSeries tsTrain("flightTrain.csv");
 
     this->dio->write("Please upload your local test CSV file.\n");
@@ -29,7 +29,7 @@ void CommandUpload::execute() {
         linesTest.push_back(line);
         line = this->dio->read();
     }
-    this->fileTest = createFile(linesTest, "flightTest.csv");
+    createFile(linesTest, "flightTest.csv");
     TimeSeries tsTest("flightTest.csv");
 
 

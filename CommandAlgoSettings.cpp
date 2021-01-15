@@ -5,17 +5,18 @@
 #include "CommandAlgoSettings.h"
 
 string CommandAlgoSettings::getDescription(){
-    return this->description;
+    return "algorithm settings";
 }
 
 void CommandAlgoSettings::execute() {
     float newThreshold;
-    cout << "The current correlation threshold is " << this->threshold;
-    cout << "\nType a new threshold\n";
-    cin >> newThreshold;
+    this->dio->write("The current correlation threshold is ");
+    this->dio->write(this->threshold);
+    this->dio->write("\nType a new threshold\n");
+    this->dio->read(&newThreshold);
     while (newThreshold > 1 || newThreshold < 0) {
-        std::cout << "please choose a value between 0 and 1";
-        cin >> newThreshold;
+        this->dio->write("please choose a value between 0 and 1");
+
     }
     this->shareKnowledge->threshold = newThreshold;
 

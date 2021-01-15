@@ -15,6 +15,23 @@
 //#include "ShareKnowledge.h"
 
 
+
+class ShareKnowledge {
+protected:
+
+public:
+    TimeSeries *tsTrain;
+    TimeSeries *tsTest;
+
+    HybridAnomalyDetector *hybridAnomalyDetector;
+    vector<AnomalyReport> anomalyReport;
+    float threshold;
+
+    ShareKnowledge() { }
+};
+
+
+
 using namespace std;
 
 class DefaultIO{
@@ -57,6 +74,8 @@ public:
     virtual ~Command(){}
 
 };
+
+
 
 
 

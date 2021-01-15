@@ -5,6 +5,7 @@
 #include <iterator>
 #include "CommandAnalyzeResults.h"
 #include <iomanip>
+static int N;
 
 string CommandAnalyzeResults::getDescription(){
     return this->description;
@@ -14,13 +15,13 @@ void CommandAnalyzeResults::execute() {
     string line;
     vector<string> linesAnomalies;
     int P; // positive
-    int N; // negative
-    for (int i = 0; i < this->shareKnowledge->tsTest->table.size(); N++, i++); // maybe different size is needed.
-    std::cout << "Please upload your local anomalies file." << std::endl;
-    cin >> line;
+    int timeSteps = this->shareKnowledge->tsTrain->table.begin()->second.size();
+    N = timeSteps; // for now.
+    this->dio->write("Please upload your local anomalies file.\n");
+    line = this->dio->read();
     while (line != "done") {
         linesAnomalies.push_back(line);
-        cin >> line;
+        line = this->dio->read();
     }
     vector<string> continuousAR = collectAnomalies(linesAnomalies);
     P = continuousAR.size();
@@ -55,12 +56,14 @@ void CommandAnalyzeResults::measureAlgo(vector<string> got, int P, int N, std::v
     }
     float tpRate = TP / P;
     float fpRate = FP / N;
-    std::cout << "True Positive Rate: ";
-    cout << fixed;
-    cout << setprecision(3) << tpRate << endl;
-    std::cout << "False Positive Rate: ";
-    cout << fixed;
-    cout << setprecision(3) << fpRate << endl;
+    this->dio->write("True Positive Rate: ");
+    float rounded_down = floorf(tpRate * 1000) / 1000;
+    this->dio->write(rounded_down);
+    this->dio->write("\n");
+    rounded_down = floorf(fpRate * 1000) / 1000;
+    this->dio->write("False Positive Rate: ");
+    this->dio->write(rounded_down);
+    this->dio->write("\n");
 
 }
 
@@ -68,18 +71,19 @@ void CommandAnalyzeResults::measureAlgo(vector<string> got, int P, int N, std::v
 vector<string> CommandAnalyzeResults::collectAnomalies(vector<string> expectedAnomalies) {
     vector<AnomalyReport> ar = this->shareKnowledge->anomalyReport;
     vector<string> continuousAR;
-    int P; // positive
-    int N; // negative
+    int anomalyNum; // positive
+    int i;
     for (int i = 0; i < ar.size() - 1; i++) {
+        printf ("ar:::: %d\n", ar.size());
         string line = std::to_string(ar[i].timeStep) + ",";
         while (ar[i].timeStep + 1 == ar[i + 1].timeStep) {
             i++;
+            anomalyNum++;
         }
         line = line + std::to_string(ar[i].timeStep);
-        P++;
         continuousAR.push_back(line);
     }
-    for (int i = 0; i < this->shareKnowledge->tsTest->table.size(); N++, i++); // maybe different size is needed.
+    N = ar.size() - anomalyNum;
     return continuousAR;
 
 }

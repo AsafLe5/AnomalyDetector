@@ -20,7 +20,7 @@ CLI::CLI(DefaultIO *dio) {
 void CLI::start() {
     //map<string, Command> commands;
 
-    ShareKnowledge *shareKnowledge;
+    ShareKnowledge shareKnowledge;
     bool exit = false;
     float choice;
 
@@ -32,27 +32,27 @@ void CLI::start() {
     while (choice != 6) {
         switch (intChoice) {
             case 1: {
-                CommandUpload commandUpload(this->dio, shareKnowledge);
+                CommandUpload commandUpload(this->dio, &shareKnowledge);
                 commandUpload.execute();
                 break;
             }
             case 2: {
-                CommandAlgoSettings commandAlgoSettings(this->dio, shareKnowledge);
+                CommandAlgoSettings commandAlgoSettings(this->dio, &shareKnowledge);
                 commandAlgoSettings.execute();
                 break;
             }
             case 3: {
-                CommandDetectAnomalies commandDetectAnomalies(this->dio, shareKnowledge);
+                CommandDetectAnomalies commandDetectAnomalies(this->dio, &shareKnowledge);
                 commandDetectAnomalies.execute();
                 break;
             }
             case 4: {
-                CommandDisplayResults commandDisplayResults(this->dio, shareKnowledge);
+                CommandDisplayResults commandDisplayResults(this->dio, &shareKnowledge);
                 commandDisplayResults.execute();
                 break;
             }
             case 5: {
-                CommandAnalyzeResults commandAnalyzeResults(this->dio, shareKnowledge);
+                CommandAnalyzeResults commandAnalyzeResults(this->dio, &shareKnowledge);
                 commandAnalyzeResults.execute();
                 break;
             }
