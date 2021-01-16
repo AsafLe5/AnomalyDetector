@@ -21,7 +21,10 @@ void CommandUpload::execute() {
         line = this->dio->read();
     }
     createFile(linesTrain,"flightTrain.csv");
-    TimeSeries tsTrain("flightTrain.csv");
+    //TimeSeries tsTrain("flightTrain.csv");
+
+
+    this->dio->write("Upload complete.\n");
 
     this->dio->write("Please upload your local test CSV file.\n");
     line = this->dio->read();
@@ -30,11 +33,12 @@ void CommandUpload::execute() {
         line = this->dio->read();
     }
     createFile(linesTest, "flightTest.csv");
-    TimeSeries tsTest("flightTest.csv");
+    //TimeSeries tsTest("flightTest.csv");
+    this->dio->write("Upload complete.\n");
 
 
-    this->shareKnowledge->tsTrain = &tsTrain;
-    this->shareKnowledge->tsTest = &tsTest;
+    //this->shareKnowledge->tsTrain = &tsTrain;
+    //this->shareKnowledge->tsTest = &tsTest;
 
 }
 

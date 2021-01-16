@@ -20,14 +20,20 @@ class ShareKnowledge {
 protected:
 
 public:
+    ShareKnowledge() {
+
+    }
+
     TimeSeries *tsTrain;
     TimeSeries *tsTest;
+
+    int timeStepsSize;
 
     HybridAnomalyDetector *hybridAnomalyDetector;
     vector<AnomalyReport> anomalyReport;
     float threshold;
 
-    ShareKnowledge() { }
+    //ShareKnowledge() { }
 };
 
 

@@ -25,8 +25,8 @@ void CLI::start() {
     float choice;
 
     this->dio->write("Welcome to the Anomaly Detection Server.\nPlease choose an option:\n");
-    this->dio->write("1. upload a time series csv file\n2. algorithm settings\n3. detect anomalies\n");
-    this->dio->write("4. display results\n5. upload anomalies and analyze results\n6. exit\n");
+    this->dio->write("1.upload a time series csv file\n2.algorithm settings\n3.detect anomalies\n");
+    this->dio->write("4.display results\n5.upload anomalies and analyze results\n6.exit\n");
     this->dio->read(&choice);
     int intChoice = choice;
     while (choice != 6) {
@@ -67,8 +67,8 @@ void CLI::start() {
         if (exit)
             break;
         this->dio->write("Welcome to the Anomaly Detection Server.\nPlease choose an option:\n");
-        this->dio->write("1. upload a time series csv file\n2. algorithm settings\n3. detect anomalies\n");
-        this->dio->write("4. display results\n5. upload anomalies and analyze results\n6. exit\n");
+        this->dio->write("1.upload a time series csv file\n2.algorithm settings\n3.detect anomalies\n");
+        this->dio->write("4.display results\n5.upload anomalies and analyze results\n6.exit\n");
         this->dio->read(&choice);
         intChoice = choice;
     }

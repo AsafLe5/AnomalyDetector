@@ -74,10 +74,10 @@ void SimpleAnomalyDetector::learnNormal(const TimeSeries &ts) {
 // Detects whether a anomaly occur.
 vector<AnomalyReport> SimpleAnomalyDetector::detect(const TimeSeries &ts) {
     vector<AnomalyReport> vector;
-
+    for (auto i = cf.begin(); i != cf.end(); ++i) {
     for (int j = 0; j < ts.table.begin()->second.size(); ++j) { // Loop through the map.
         int iter = -1;
-        for (auto i = cf.begin(); i != cf.end(); ++i) { // Loop through the cf vector.
+         // Loop through the cf vector.
             iter++;
             float floatA = ts.table.at(i->feature1)[j];
             float floatB = ts.table.at(i->feature2)[j];

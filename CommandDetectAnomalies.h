@@ -15,7 +15,7 @@ public:
             this->shareKnowledge = sKnow;
     }
 
-    FILE createFile(vector<string> lines, string fileName);
+
     string getDescription();
 
 };

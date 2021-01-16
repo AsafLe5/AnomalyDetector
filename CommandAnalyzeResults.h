@@ -20,7 +20,7 @@ public:
 
     vector<string> collectAnomalies(vector<string> expectedAnomalies);
 
-    void measureAlgo(vector<string> vector, int p, int n, std::vector<string> expected);
+    void measureAlgo(vector<string> vector, float p, std::vector<string> expected);
 
     string getDescription();
 };

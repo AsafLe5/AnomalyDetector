@@ -5,7 +5,7 @@
 #include <iterator>
 #include "CommandAnalyzeResults.h"
 #include <iomanip>
-static int N;
+static float N;
 
 string CommandAnalyzeResults::getDescription(){
     return this->description;
@@ -14,8 +14,8 @@ string CommandAnalyzeResults::getDescription(){
 void CommandAnalyzeResults::execute() {
     string line;
     vector<string> linesAnomalies;
-    int P; // positive
-    int timeSteps = this->shareKnowledge->tsTrain->table.begin()->second.size();
+    float P; // positive
+    int timeSteps = this->shareKnowledge->timeStepsSize;
     N = timeSteps; // for now.
     this->dio->write("Please upload your local anomalies file.\n");
     line = this->dio->read();
@@ -23,14 +23,15 @@ void CommandAnalyzeResults::execute() {
         linesAnomalies.push_back(line);
         line = this->dio->read();
     }
+    this->dio->write("Upload complete.\n");
     vector<string> continuousAR = collectAnomalies(linesAnomalies);
     P = continuousAR.size();
-    measureAlgo(continuousAR, P, N, linesAnomalies);
+    measureAlgo(continuousAR, P, linesAnomalies);
 }
 
-void CommandAnalyzeResults::measureAlgo(vector<string> got, int P, int N, std::vector<string> expected) {
-    int TP = 0; // true positive
-    int FP = 0; // false positive
+void CommandAnalyzeResults::measureAlgo(vector<string> got, float P, std::vector<string> expected) {
+    float TP = 0; // true positive
+    float FP = 0; // false positive
 
     for (int i = 0; i < got.size(); i++) {
         bool match = false;
@@ -74,7 +75,6 @@ vector<string> CommandAnalyzeResults::collectAnomalies(vector<string> expectedAn
     int anomalyNum; // positive
     int i;
     for (int i = 0; i < ar.size() - 1; i++) {
-        printf ("ar:::: %d\n", ar.size());
         string line = std::to_string(ar[i].timeStep) + ",";
         while (ar[i].timeStep + 1 == ar[i + 1].timeStep) {
             i++;
