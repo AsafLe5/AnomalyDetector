@@ -33,5 +33,5 @@ void CommandDetectAnomalies::execute() {
 
     ad.learnNormal(tsTrain);
     this->shareKnowledge->anomalyReport = ad.detect(tsTest);
-    this->dio->write("anomaly detection complete\n");
+    this->dio->write("anomaly detection complete.\n");
 }

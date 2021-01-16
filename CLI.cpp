@@ -18,7 +18,6 @@ CLI::CLI(DefaultIO *dio) {
 }
 
 void CLI::start() {
-    //map<string, Command> commands;
 
     ShareKnowledge shareKnowledge;
     bool exit = false;

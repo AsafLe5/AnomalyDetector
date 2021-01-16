@@ -12,6 +12,7 @@ string CommandAnalyzeResults::getDescription(){
 }
 
 void CommandAnalyzeResults::execute() {
+    N=0;
     string line;
     vector<string> linesAnomalies;
     float P; // positive
@@ -25,7 +26,7 @@ void CommandAnalyzeResults::execute() {
     }
     this->dio->write("Upload complete.\n");
     vector<string> continuousAR = collectAnomalies(linesAnomalies);
-    P = continuousAR.size();
+    P = linesAnomalies.size();
     measureAlgo(continuousAR, P, linesAnomalies);
 }
 
@@ -41,19 +42,21 @@ void CommandAnalyzeResults::measureAlgo(vector<string> got, float P, std::vector
         int intFrom = std::stoi(from);
         int intTo = std::stoi(to);
         for (int j = 0; j < expected.size(); j++) {
-            pos = got[i].find(",");
-            string Exfrom = got[i].substr(0, pos);
-            string Exto = got[i].substr(pos + 1);
+            pos = expected[j].find(",");
+            string Exfrom = expected[j].substr(0, pos);
+            string Exto = expected[j].substr(pos + 1);
             int intExFrom = std::stoi(Exfrom);
             int intExTo = std::stoi(Exto);
 
-            if ((intFrom > intExTo && intTo > intExTo) && (intExFrom > intTo && intExTo > intTo))
-                FP++;
+            if ((intFrom > intExTo && intTo > intExTo) || (intExFrom > intTo && intExTo > intTo))
+                continue;
             else
                 match = true;
         }
         if (match)
             TP++;
+        else
+            FP++;
     }
     float tpRate = TP / P;
     float fpRate = FP / N;
@@ -72,7 +75,7 @@ void CommandAnalyzeResults::measureAlgo(vector<string> got, float P, std::vector
 vector<string> CommandAnalyzeResults::collectAnomalies(vector<string> expectedAnomalies) {
     vector<AnomalyReport> ar = this->shareKnowledge->anomalyReport;
     vector<string> continuousAR;
-    int anomalyNum; // positive
+    int anomalyNum=0; // positive
     int i;
     for (int i = 0; i < ar.size() - 1; i++) {
         string line = std::to_string(ar[i].timeStep) + ",";
@@ -83,7 +86,7 @@ vector<string> CommandAnalyzeResults::collectAnomalies(vector<string> expectedAn
         line = line + std::to_string(ar[i].timeStep);
         continuousAR.push_back(line);
     }
-    N = ar.size() - anomalyNum;
+    N = this->shareKnowledge->timeStepsSize - anomalyNum;
     return continuousAR;
 
 }
