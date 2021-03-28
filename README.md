@@ -1,7 +1,7 @@
 # AnomalyDetector
 
 ## General Description
-This program checks anomalies and detects them, works with multiple clients, each one has its unique thread.
+This program checks anomalies of flights, works with multiple clients, each one has its unique thread.
  
 ## Features
 
