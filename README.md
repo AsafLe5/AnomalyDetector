@@ -9,15 +9,15 @@ This program checks anomalies of flights, works with multiple clients, each one 
 
 ## Examples 
 
-pressing 1:
+pressing 1: uploading the files to detect anomalies 
 
 ![Image of upload](https://i.gyazo.com/3525598a019f01db3fd1cb93df6cc13e.png)
 
-pressing 2:
+pressing 2: change algorithm settings 
 
 ![Image of caculation](https://i.gyazo.com/22ab5589750d1675ba9f5990466fa152.png)
 
-pressing 4:
+pressing 4: display results - how many anomalies
 
 ![Image of caculation](https://i.gyazo.com/65a1bcd530282d8d9a523dd5272eadcd.png)
 
